@@ -54,8 +54,7 @@
    
    <!-- This div shows the total Reservations -->
     <div
-        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25"
-      >
+        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25">
         <stats-card data-background-color="orange">
           <template slot="header">
             <md-icon>store</md-icon>
@@ -122,10 +121,12 @@
 </template>
 
 <script>
+import axios from 'axios';
 import {StatsCard} from "@/components";
 import {OrderedTable} from "@/components";
 export default {
-  components:{
+  components:
+  {
      StatsCard,
      OrderedTable
   },
@@ -159,22 +160,14 @@ export default {
           country: "Korea, South",
           city: "Gloucester"
         }
-       ],
-       responsiveOptions: [
-          [
-            "screen and (max-width: 640px)",
-            {
-              seriesBarDistance: 5,
-              axisX: {
-                labelInterpolationFnc: function(value) {
-                  return value[0];
-                },
-              },
-            },
-          ],
-        ],
+      ]}
+  },
+  mounted()
+    {
+      axios.get("http://localhost:5001/admin/dashboard").then(res=>{
+      console.log(res);
+      });
     }
-  }
 };    
 </script>
 <style>

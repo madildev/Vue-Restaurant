@@ -5,7 +5,8 @@
             <h2>Admin Panel</h2>
         </div>
         <div class="sidebar-head">
-          <i class="far fa-user-circle"></i> <h4>Manager</h4>
+          <i class="far fa-user-circle"></i> 
+          <h4>Manager</h4>
         </div>
          <div class="sidebar-menu">
            <ul>
@@ -69,6 +70,9 @@ export default {
   font-size: 5.5rem;
   padding: 5%;
 }
+.sidebar-head h4{
+  text-align: center;
+}
 .sidebar-menu ul
 {
   margin-top: 20%;
@@ -76,6 +80,7 @@ export default {
   height: 100%;
 }
 .sidebar-menu ul li{
+  margin-left: 10%;
   margin-top: 12%;
   text-align: left;
 }

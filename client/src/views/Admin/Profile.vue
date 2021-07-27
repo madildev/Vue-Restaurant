@@ -35,7 +35,7 @@ export default {
   {
     if(!(this.loaded))
     {
-       axios.post("http://localhost:5001/profile/employees",{
+       axios.post("http://localhost:5001/profile/view/employees",{
         userid: this.id
       }).then(response =>{
            console.log(response);

@@ -8,7 +8,7 @@ const dbConnection = sql.connect(config, err => {
     { // SQL error, but connection OK.
       console.log(" Server Error:"+ err);
     } else 
-    { // All is rosey in your garden.
+    { // All is rosey in your gard
       console.log("Database is connected Successfully");
     };
   });

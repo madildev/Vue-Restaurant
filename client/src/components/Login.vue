@@ -1,4 +1,3 @@
-
 <template>
   <div class="login">
         <!-- Modal -->
@@ -24,12 +23,12 @@
                             <h5 class="text-center">Login Please</h5>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Email address</label>
-                                <input type="email" v-model="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                <input type="email" v-model="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
                                 <small class="form-text text-muted">We'll never share your email with anyone else.</small>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Password</label>
-                                <input type="password" @keyup.enter="login" v-model="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                <input type="password" @keyup.enter="login" v-model="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
                             </div>
 
                              <div class="form-group">
@@ -42,17 +41,22 @@
                              <h5 class="text-center">Create New Account</h5>
                              
                             <div class="form-group">
-                                <label for="name">Your name</label>
-                                <input type="text" v-model="name" class="form-control" id="name" placeholder="Your nice name">
+                                <label for="name">Your First name</label>
+                                <input type="text" v-model="firstname" class="form-control" id="firstname" placeholder="Your first name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name">Your Last name</label>
+                                <input type="text" v-model="lastname" class="form-control" id="lastname" placeholder="Your last name" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="email">Email address</label>
-                                <input type="email"  v-model="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                                <input type="email"  v-model="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" required>
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
-                                <input type="password" v-model="password" class="form-control" id="password" placeholder="Password">
+                                <input type="password" v-model="password" class="form-control" id="password" placeholder="Password" required>
                             </div>
 
                             <div class="form-group">
@@ -82,7 +86,8 @@ export default {
   },
   data(){
       return {
-          name:"",
+          firstname:"",
+          lastname:"",
           email:"",
           password:""
       }
@@ -97,42 +102,41 @@ export default {
             .then((response) => {
                           console.log(response); //The data sent from the server
                           response.data.recordset.forEach(element => {
-                              if(element.U_email === this.email)
-                              {
-                                  if(element.U_password === this.password)
-                                  {
-                                     this.$router.replace(`/admin/${element.Emp_Id}`); 
-                                  }
-                                  else
-                                  {
-                                      alert("Inncorrect Password !!")
-                                  }
-                              }
-                              else
-                              {
-                                  alert("Inncorrect Email !!");
-                              }
-                              
+                                if(element.Emp_Id != null)
+                                {
+                                    alert('You logged In Successfully!!');
+                                    this.$router.replace(`/admin/${element.Emp_Id}`);
+                                }
+                                else
+                                {
+                                    alert('You logged In Successfully!!');
+                                   this.$router.replace(`/customer/${element.Cus_Id}`);
+                                }
                           });
 
-                        })
-                        .catch(function(error) {
-                            // Handle Errors here.
-                            var errorCode = error.code;
-                            var errorMessage = error.message;
-                            if (errorCode === 'auth/wrong-password') {
-                                alert('Wrong password.');
-                            } else {
-                                alert(errorMessage);
-                            }
-                            console.log(error);
-                    });
+                        });
       },
-      register(){
+      register()
+      {
+          axios.post('http://localhost:5001/register/user',{
+              firstname: this.firstname,
+              lastname: this.lastname,
+              email: this.email,
+              password: this.password
+          }).then(response =>{
+            console.log(response);
+            response.data.recordset.forEach(element => {
+                if(element.Cus_Id != null)
+                {
+                   alert('User Registered Successfully');
+                   this.$router.replace(`/customer/${element.Cus_Id}`);
+                }
+          });
             
-        }
+       });
     }
-}        
+  }
+}       
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
