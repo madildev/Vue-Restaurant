@@ -8,9 +8,6 @@
           </md-table-toolbar>
 
           <md-table-row slot="md-table-row" slot-scope="{ item }">
-            <md-table-cell md-label="Order Id" md-sort-by="id">{{
-              item.O_Id
-            }}</md-table-cell>
             <md-table-cell md-label="First Name">{{
               item.C_FirstName
             }}</md-table-cell>
@@ -41,6 +38,7 @@ export default {
       date: this.currentDateTime(),
       id: this.$route.params.cusid,
       orders: [],
+
     };
   },
   methods: {
@@ -61,6 +59,7 @@ export default {
       const dateTime = date + " " + time;
       return dateTime;
     },
+    
   },
   mounted() {
     axios

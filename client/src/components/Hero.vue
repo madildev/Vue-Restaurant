@@ -1,5 +1,6 @@
 <template>
   <div class="hero">
+      <Navbar></Navbar>
     <section id="home">
         <h1 class="h-primary">Welcome to Vue Restaurant</h1>
         <p>An intreguing Resteraunt that works on all of YOUR likings and has been adapted to fulfil all our customer needs </p>
@@ -67,10 +68,14 @@
 </template>
 
 <script>
+import Navbar from '../components/NavBar.vue';
 export default {
   name: "Hero",
   props: {
     msg: String
+  },
+  components:{
+      Navbar
   }
 };
 </script>

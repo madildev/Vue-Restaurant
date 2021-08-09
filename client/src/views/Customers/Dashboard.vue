@@ -1,8 +1,7 @@
 <template>
   <div class="content">
-    <div class="md-layout">
+    <div>
       <!-- This card will display the desserts-->
-      <div class="md-layout-item md-large-size-100 md-size-66">
         <div class="food-title">
           <h2>Desserts</h2>
         </div>
@@ -12,19 +11,16 @@
             v-for="(dish, index) in this.desserts"
             :key="index"
           >
-            <router-link
+           <router-link
               :to="{ name: 'cdetails', params: { dishid: dish.D_Id } }"
               ><md-card>
                 <md-card-media>
                   <img :src="dish.D_Img" alt="People" />
                 </md-card-media>
-
-                <md-card-header>
-                  <div class="md-title">{{ dish.D_Name }}</div>
-                </md-card-header>
-
                 <md-card-content>
-                  {{ dish.D_Description }}
+                  <h3>{{dish.D_Name}}</h3>
+                  <h1>Rs: {{dish.D_Price}}</h1>
+                  <p>{{ dish.D_Description }}</p>
                 </md-card-content>
               </md-card></router-link
             >
@@ -48,13 +44,11 @@
                 <img :src="dish.D_Img" alt="People" />
               </md-card-media>
 
-              <md-card-header>
-                <div class="md-title">{{ dish.D_Name }}</div>
-              </md-card-header>
-
               <md-card-content>
-                {{ dish.D_Description }}
-              </md-card-content>
+                  <h3>{{dish.D_Name}}</h3>
+                  <p>{{ dish.D_Description }}</p>
+                </md-card-content>
+
             </md-card></router-link>
           </div>
         </div>
@@ -70,14 +64,12 @@
               <md-card-media>
                 <img :src="dish.D_Img" alt="People" />
               </md-card-media>
-
-              <md-card-header>
-                <div class="md-title">{{ dish.D_Name }}</div>
-              </md-card-header>
-
+              
               <md-card-content>
-                {{ dish.D_Description }}
-              </md-card-content>
+                  <h3>{{dish.D_Name}}</h3>
+                  <p>{{ dish.D_Description }}</p>
+                </md-card-content>
+
             </md-card> </router-link>
           </div>
         </div>
@@ -94,14 +86,12 @@
               <md-card-media>
                 <img :src="dish.D_Img" alt="People" />
               </md-card-media>
-
-              <md-card-header>
-                <div class="md-title">{{ dish.D_Name }}</div>
-              </md-card-header>
-
+              
               <md-card-content>
-                {{ dish.D_Description }}
-              </md-card-content>
+                  <h3>{{dish.D_Name}}</h3>
+                  <p>{{ dish.D_Description }}</p>
+                </md-card-content>
+
             </md-card> </router-link>
           </div>
         </div>
@@ -118,14 +108,12 @@
               <md-card-media>
                 <img :src="dish.D_Img" alt="People" />
               </md-card-media>
-
-              <md-card-header>
-                <div class="md-title">{{ dish.D_Name }}</div>
-              </md-card-header>
-
+                 
               <md-card-content>
-                {{ dish.D_Description }}
-              </md-card-content>
+                  <h3>{{dish.D_Name}}</h3>
+                  <p>{{ dish.D_Description }}</p>
+                </md-card-content>
+
             </md-card></router-link>
           </div>
         </div>
@@ -134,7 +122,7 @@
         <div class="food-title">
           <h2>Tandoor</h2>
         </div>
-        <div class="dessert-section">
+        <div class="dessert-section md-layout-item md-layout md-gutter">
           <div class="dessert" v-for="(dish, index) in tandoor" :key="index">
             <router-link
               :to="{ name: 'cdetails', params: { dishid: dish.D_Id } }"
@@ -142,21 +130,19 @@
               <md-card-media>
                 <img :src="dish.D_Img" alt="People" />
               </md-card-media>
-
-              <md-card-header>
-                <div class="md-title">{{ dish.D_Name }}</div>
-              </md-card-header>
-
+              
               <md-card-content>
-                {{ dish.D_Description }}
-              </md-card-content>
+                  <h3>{{dish.D_Name}}</h3>
+                  <h4>Rs: {{dish.D_Price}}</h4>
+                  <p>{{ dish.D_Description }}</p>
+                </md-card-content>
+
             </md-card></router-link>
           </div>
         </div>
         
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -172,13 +158,20 @@ export default {
     drinks: [],
     fastfood: [],
     tandoor: [],
+    colors: ["red","green","blue","purple","orange"]
   }),
   methods: {
     toggleMenu() {
       this.menuVisible = !this.menuVisible;
     },
+    getcolor()
+    {
+       var index = Math.random()* 5;
+       return this.colors[index];
+    }
   },
-  mounted() {
+  mounted() 
+  {
     if(!(this.loaded))
     {
       axios
@@ -207,33 +200,57 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.md-app 
-{
-  min-height: 400px;
-  border: 1px solid rgba(#000, 0.12);
-}
+<style scoped>
 .md-card
 {
-  height: 250px;
+  height: 340px;
+  width: 290px;
+  box-shadow: 15px 10px 35px gray;
+  border-radius: 8px;
+}
+.md-card .md-card-media img
+{
+  height: 165px;
+  border-radius: 8px 8px 0 0;
+}
+.md-card .md-card-media
+{
+  margin: 0px;
 }
 
-// Demo purposes only
+.md-card .md-card-content{
+  padding: 0 15px;
+}
+.md-card .md-card-content h3{
+  margin: 0px;
+}
+
+.md-card .md-card-content h1{
+  margin: 0px;
+  color: #81bdf5;
+  font-weight: bold;
+  font-size: 14px;
+}
+
 .md-drawer {
   width: 250px;
   max-width: calc(100vw - 125px);
 }
 
-.dessert-section {
+.dessert-section 
+{
+  width: 100%;
   padding-right: 10px;
   display: grid;
-  grid-template-columns: 2fr 2fr 2fr 2fr 2fr;
-  grid-column-gap: 35px;
+  grid-template-columns: auto auto auto auto;
+  grid-column-gap: 20px;
+  justify-content: center;
 }
 .dessert {
   cursor: pointer;
 }
 .food-title {
   position: relative;
+  margin-left: 20px;
 }
 </style>

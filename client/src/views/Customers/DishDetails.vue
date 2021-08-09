@@ -1,33 +1,28 @@
 <template>
-  <div class="dish-details">
-    <div class="md-layout">
-      <div class="md-layout-item md-large-size-100 md-size-66">
-        <div class="details">
-          <div>
-            <h1>{{ details.D_Name }}</h1>
-            <img :src="details.D_Img" alt="" />
+      <div class="dish-details">
+          <div class="details" :style="{'background-image': `url(${details.D_Img})` }">
+          <div class="inner-details">
+            <h1 :style="{ 'font-weight': 'bold' }">{{ details.D_Name }}</h1>
+            <h2>Details: </h2>
+            <h3>Price: {{ details.D_Price }} Rs</h3>
+            <h3>{{ details.D_Description }}</h3>
           </div>
-          <div>
-            <h2>Details</h2>
-            <h3>Description: {{ details.D_Description }}</h3>
-            <h3>Dish Name: {{ details.D_Name }}</h3>
-          </div>
-          <div>
-            <h3>Price: Rs {{ details.D_Price }}</h3>
+          <div class="detail-btns">
+               <a @click="scrollMeTo('order')">Order</a>
+               <a @click="scrollMeTo('review')">Rating</a>
           </div>
         </div>
         
-        <div class="orders">
+        <div id="order" class="orders">
             <h2>Order</h2>
               <form>
                   <legend>Details</legend>
                   <input type="number" name="" id="" v-model="quantity" placeholder="Enter the Quantity">
                   <md-button class="md-dense md-raised " @click="AddOrder">Add to Cart</md-button>
               </form>
-
           </div>
 
-        <div class="review-details">
+        <div id="review" class="review-details">
           <h2>Reviews</h2>
           <div class="review-button">
             <md-button
@@ -73,8 +68,7 @@
           </form>
         </div>
       </div>
-    </div>
-  </div>
+        
 </template>
 
 <script>
@@ -116,6 +110,7 @@ export default {
             date: this.date
         }).then(res => {
             console.log(res);
+            alert(res.data)
         })
     },
     AddReview()
@@ -127,11 +122,18 @@ export default {
         dishid: this.id,
       }).then(res=>{
         console.log(res);
+        alert(res.data)
       })
+    },
+    scrollMeTo(id) {
+      document.getElementById(id).scrollIntoView({
+        behavior: "smooth"
+      });
     }
   },
   mounted() {
-    if (!this.loaded) {
+    if (!this.loaded) 
+    {
       axios
         .post("http://localhost:5001/dish/details", {
           dishid: this.id,
@@ -156,23 +158,43 @@ export default {
 </script>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
+.details
+{
+   height: 100vh;
+   background-repeat: none;
+   background-size: cover;
+   background-position: center center;
 }
-.review-form form {
+.inner-details{
+  padding: 5px 15px;
+  color: white;
+}
+.detail-btns a{
+  cursor: pointer;
+   padding: 5px;
+   font-size: 20px;
+   text-decoration: none;
+   background-color: violet;
+   margin: 5px;
+   border-radius: 5px;
+}
+
+.review-form form
+{
   width: 50%;
   border: 1px solid black;
   text-align: center;
 }
-.review-form form input {
+.review-form form input 
+{
   padding: 12px 20px;
   display: block;
   border: 1px solid #ccc;
   border-radius: 4px;
   margin: auto;
 }
-.orders form {
+.orders form 
+{
   width: 50%;
   border: 1px solid black;
   text-align: center;

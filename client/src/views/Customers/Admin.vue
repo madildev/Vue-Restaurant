@@ -7,7 +7,6 @@
         </md-button>
         <span class="md-title">Vue-Restaurant</span>
       </md-app-toolbar>
-
       <md-app-drawer :md-active.sync="menuVisible" md-persistent="full">
         <md-toolbar class="md-transparent" md-elevation="0">
           <span>Navigation</span>
@@ -63,17 +62,23 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  .md-app {
+<style scoped>
+  .md-app 
+  {
     height: 100vh;
-    min-height: 350px;
+    max-width: 100vw;
+    min-width: 100vw;
     border: 1px solid rgba(#000, .12);
   }
-  .md-list{
+  .md-app-content{
+    padding: 0;
+  }
+  .md-list
+  {
     margin-left: 10px;
   }
-   // Demo purposes only
-  .md-drawer {
+  .md-drawer 
+  {
     width: 230px;
     max-width: calc(100vw - 125px);
   }

@@ -10,14 +10,14 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <router-link to="/" class="nav-link">Home</router-link>
+              <a  class="nav-link" @click="scrollMeTo('home')">Home</a>
             </li>
             <li class="nav-item">
-              <router-link to="/" class="nav-link" href="#service">Services</router-link>
+              <a  class="nav-link" @click="scrollMeTo('services-container')">Services</a>
             </li>
 
             <li class="nav-item">
-              <router-link to="/" class="nav-link" href="#contact">Contact us</router-link>
+              <a class="nav-link" @click="scrollMeTo('contact')">Contact Us</a>
             </li>
           
           </ul>
@@ -40,13 +40,30 @@ export default {
   props: {
     msg: String
   },
-  components:{}
+  components:{},
+  methods:
+  {
+    scrollMeTo(id) 
+    {
+      document.getElementById(id).scrollIntoView({
+        behavior: "smooth"
+      });
+    }
+  }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-  @media (min-width: 992px) { 
+  a{
+    cursor: pointer;
+  }
+
+  @media (min-width: 992px) {
+    
+    a{
+      cursor: pointer;
+    }
     
     .navbar.custom-nav{
       padding-top:16px;

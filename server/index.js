@@ -198,7 +198,8 @@ app.post('/dish/details',(request,response)=>{
       {
         throw err;
       }
-      else{
+      else
+      {
           console.log(res);
           response.send(res);
       }
@@ -211,7 +212,8 @@ app.post('/dish/reviews',(request,response)=>{
         if(err){
             throw err
         }
-        else{
+        else
+        {
             console.log(res);
             response.send(res);
         }
@@ -221,12 +223,14 @@ app.post('/dish/reviews',(request,response)=>{
 //This route adds the new review abou the dish selected by the user
 app.post('/dish/add/reviews',(request,response)=>{
     db.query(`Insert Into Reviews Values ('${request.body.cusid}','${request.body.remarks}','${request.body.rating}', '${request.body.dishid}')`,(err,res)=>{
-        if(err){
+        if(err)
+        {
             throw err
         }
-        else{
+        else
+        {
             console.log(res);
-            response.send(res);
+            response.send("Review Submitted Successfully!!!!");
         }
     });
 });
@@ -234,23 +238,25 @@ app.post('/dish/add/reviews',(request,response)=>{
 //This Route will add food order to database
 app.post('/dish/addorder',(request,response)=>{
     db.query(`Insert Into FoodOrder Values ('${request.body.dishid}','${request.body.cusid}','${request.body.quantity}','${request.body.date}')`,(err,res)=>{
-       if(err){
+       if(err)
+       {
            throw err
        }
        else{
            console.log(res);
-           response.send(res);
+           response.send("Dish Added to the cart!!!!");
        }
     })
 });
 
 //This route will retrive food order from the database
 app.post('/dish/getorder',(request,response)=>{
-    db.query(`Select FoodOrder.O_Id,Customers.C_FirstName,Customers.C_LastName,Dishes.D_Name, Dishes.D_Price,FoodOrder.Quantity, FoodOrder.O_Date
+    db.query(`Select Customers.C_FirstName,Customers.C_LastName,Dishes.D_Name, Dishes.D_Price,FoodOrder.Quantity, FoodOrder.O_Date
     from ((FoodOrder
-    Inner Join Customers on FoodOrder.Cus_Id = Customers.C_Id)
+    Inner Join Customers on FoodOrder.Cus_Id = Customers.C_Id And Customers.C_Id = '${request.body.cusid}')
     Inner Join Dishes on FoodOrder.Dish_Id = Dishes.D_Id)`,(err,res)=>{
-       if(err){
+       if(err)
+       {
            throw err
        }
        else{
