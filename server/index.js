@@ -10,13 +10,17 @@ app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(cors());
 
-app.listen('5001', // localhost:5000
+app.listen('5001', // localhost:5001
     () => 
     {
         console.log("Sever Started Successfully on port 5001");
     }
 );
 
+//This is the default route
+app.get('/',(req,res)=>{
+ res.send("Hello From the local server!!!");
+});
 //This is the route that handles the login page
 app.post('/login',(request,response) => 
 {
@@ -141,7 +145,7 @@ app.get('/product/desi',(request,response)=>{
         {
           throw err;
         }
-        else{
+        else {
             console.log(res);
             response.send(res);
         }
